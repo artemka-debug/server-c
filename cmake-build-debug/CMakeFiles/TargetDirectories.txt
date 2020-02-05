@@ -1,0 +1,2 @@
+/home/artem/dick/C_IS_A_FATHER/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/artem/dick/C_IS_A_FATHER/cmake-build-debug/CMakeFiles/edit_cache.dir
