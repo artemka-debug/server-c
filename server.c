@@ -28,6 +28,9 @@ void start_and_run_server(int server, int connections, struct sockaddr_in *addre
 			printf("user connected\n");
 			char buffer[1024];
 		    int read_data = recv(new_socket, buffer, sizeof(buffer), 0);
+			printf("------------------------\n");
+			printf("start [%s] \n", buffer); 
+
     		request *req = parse_request(buffer);
 
 			if (strcmp(PASSWORD, req->body) == 0) {
@@ -37,6 +40,10 @@ void start_and_run_server(int server, int connections, struct sockaddr_in *addre
 				char *final = concat(responce_string, h);
 				char *responce = concat(final, data);
 				respond(new_socket, responce);
+								free(h);
+				free(final);
+				free(responce);
+
 
 				printf("logged in %s %s\n", req->body, PASSWORD);
 			} else {
@@ -46,9 +53,14 @@ void start_and_run_server(int server, int connections, struct sockaddr_in *addre
 				char *final = concat(responce_string, h);
 				char *responce = concat(final, data);
 				respond(new_socket, responce);
+				free(h);
+				free(final);
+				free(responce);
 
 				printf("did not log in %s %s\n", req->body, PASSWORD);
+
 			}
+			printf("------------------------\n");
     		// free_request(req);
 		}
 	}

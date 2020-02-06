@@ -1,39 +1,31 @@
 #include "main.h"
 
-char *substring(char *str, size_t start, size_t end) {
-    size_t size = end - start;
-    char *out = malloc(sizeof(char) * size);
-
-    for (size_t j = start, c = 0; j < end; j++, c++) {
-        out[c] = str[j];
+int get_body_lenght(ss *list) {
+    for (int i = 0; i < list->top; i++) {
+        if (strstr(list->header[i], "content-length")) {
+            return atoi(strchr(list->header[i], ':') + 2);
+        }
     }
-    out[end] = '\0';
 
-    return out;
+    return 0;
 }
 
 ss *split_request(char *str) {
-    ss *list = NULL;
+    ss *list = malloc(sizeof(ss));
     int start = 0;
-    int end = 0;
     char *end_of_req = strstr(str, "\r\n\r\n");
     int req_lenght = strlen(str) - strlen(end_of_req);
 
     while (start <= req_lenght) {
         char *test = strstr(str + start, "\r\n");
-        end = strlen(str) - strlen(test);
+        int end = strlen(str) - strlen(test);
         char *header = substring(str, start, end);
 
-        list = push(list, header);
+        push(list, header);
         start = end + strlen("\r\n");
     }
-
-    int len = strlen(str);
-    int i = start + 1 + 1;
-
-    while ((str[i] >= 0 && str[i] <= 127) && str[i] != '\r') {
-        i++;
-    }
-            
-    return start + 2 == len ? push(list, " ") : push(list, substring(str, start + 2, i - 2));
+    
+    start += 2;
+    push(list, substring(str, start,start + get_body_lenght(list)));
+    return list;
 }

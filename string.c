@@ -8,7 +8,7 @@ char* concat(const char *s1, const char *s2) {
 }
 
 char* concat_h(const char *s1, const char *s2, int last_header) {
-    char *final_header = malloc(strlen(s1) + strlen(s2) + 7); // +1 for the null-terminator
+    char *final_header = malloc(strlen(s1) + strlen(s2) + 7);
     strcpy(final_header, s1);
 	final_header[strlen(final_header)] = ':';
 	final_header[strlen(final_header)] = ' ';
@@ -22,3 +22,16 @@ char* concat_h(const char *s1, const char *s2, int last_header) {
     }
     return final_header;
 }
+
+char *substring(char *str, size_t start, size_t end) {
+    size_t size = end - start;
+    char *out = malloc(sizeof(char) * size);
+
+    for (size_t j = start, c = 0; j < end; j++, c++) {
+        out[c] = str[j];
+    }
+    out[end] = '\0';
+
+    return out;
+}
+
