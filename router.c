@@ -1,23 +1,27 @@
 #include "main.h"
 
- void router(char *path, request *req, int new_socket) {
-    if (req->method == GET && strcmp(req->url, path) == 0) {
-        check_password(new_socket, req->body);
-    } else if (req->method == POST && strcmp(req->url, path) == 0) {
-        check_password(new_socket, req->body);
-    } else {
-        respond(new_socket, make_response_string(" 500 Not Handled", VERSION, "{\"success\": false}\r\n\r\n", NULL));
+void _get(request *req, get *get, char *path, int new_socket) {
+    for (int i = 0; i < get->top; i++) {
+        if (strcmp(path, get->pathes[i]) == 0) {
+            get->fnc[i](req, new_socket);
+        }
     }
- }
+    respond(new_socket, make_response_string(" 500 Not Handled", VERSION, NULL, NULL));
+}
 
- void check_password(int new_socket, char *password) {
-    if (strcmp(PASSWORD, password) == 0) {
-        respond(new_socket, make_response_string(" 200 OK", VERSION,
-            "{\"success\": true}\r\n",
-            "Content-Type: appliction/json\r\n\r\n"));
-    } else {
-        respond(new_socket, make_response_string(" 401 Unauthorized", VERSION,
-            "{\"success\": false, \"Error\": \"Wrong password\"}\r\n",
-            "Content-Type: appliction/json\r\n\r\n"));
+void _post(request *req, post *post, char *path, int new_socket) {
+    for (int i = 0; i < post->top; i++) {
+        if (strcmp(path, post->pathes[i]) == 0) {
+            post->fnc[i](req, new_socket);
+        }
+    }
+    respond(new_socket, make_response_string(" 500 Not Handled", VERSION, "\r\n\r\n", NULL));
+}
+
+ void router(request *req, int new_socket, r *Router) {
+    if (req->method == GET) {
+        _get(req, Router->get, req->url, new_socket);
+    } else if (req->method == POST) {
+        _post(req, Router->post, req->url, new_socket);
     }
  }

@@ -17,7 +17,7 @@ int create_and_bind_socket(int server, int domain, int port, in_addr_t addr, str
     return bind(server, (const struct sockaddr *)address, sizeof(*address)) < 0 ? -1 : 1;
 }
 
-void start_and_run_server(int server, int connections, struct sockaddr_in *address, int port) {
+void start_and_run_server(r *Router, int server, int connections, struct sockaddr_in *address, int port) {	
 	printf("Server is running on port %i\n", port);
 	listen(server, connections);
 	while (1) {
@@ -33,10 +33,10 @@ void start_and_run_server(int server, int connections, struct sockaddr_in *addre
 		    ss *list = split_request(buffer);
     		request *req = parse_request(list);
 			
-			router("/hui", req, new_socket);
+			router(req, new_socket, Router);
 			printf("------------------------\n");
     		// free_request(req);
-		    free_ss(list);
+		    // free_ss(list);
 		}
 	}
 }

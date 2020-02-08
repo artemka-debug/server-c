@@ -7,8 +7,12 @@ char *make_response_string(char *status, char *http_version, char *json_data, ch
     response_string[strlen(response_string)] = '\r';
     response_string[strlen(response_string)] = '\n';
     
-    if (headers) {
+    if (headers && json_data) {
         return concat(concat(response_string, headers), json_data);
+    } else {
+        response_string[strlen(response_string)] = '\r';
+        response_string[strlen(response_string)] = '\n';
+        return response_string;
     }
 
     return concat(concat(response_string, json_data), "");
