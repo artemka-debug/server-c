@@ -30,38 +30,13 @@ void start_and_run_server(int server, int connections, struct sockaddr_in *addre
 		    int read_data = recv(new_socket, buffer, sizeof(buffer), 0);
 			printf("------------------------\n");
 			printf("start [%s] \n", buffer); 
-
-    		request *req = parse_request(buffer);
-
-			if (strcmp(PASSWORD, req->body) == 0) {
-				char *responce_string = "HTTP/1.1 200 OK\r\n";
-				char *h = concat_h("Content-Type", "application/json", 1);
-				char *data = "{\"success\": true}\r\n";
-				char *final = concat(responce_string, h);
-				char *responce = concat(final, data);
-				respond(new_socket, responce);
-								free(h);
-				free(final);
-				free(responce);
-
-
-				printf("logged in %s %s\n", req->body, PASSWORD);
-			} else {
-				char *responce_string = "HTTP/1.1 401 Unauthorized\r\n";
-				char *h = concat_h("Content-Type", "application/json", 1);			
-				char *data = "{\"success\": false, \"Error\": \"Wrong password\"}\r\n";
-				char *final = concat(responce_string, h);
-				char *responce = concat(final, data);
-				respond(new_socket, responce);
-				free(h);
-				free(final);
-				free(responce);
-
-				printf("did not log in %s %s\n", req->body, PASSWORD);
-
-			}
+		    ss *list = split_request(buffer);
+    		request *req = parse_request(list);
+			
+			router("/hui", req, new_socket);
 			printf("------------------------\n");
     		// free_request(req);
+		    free_ss(list);
 		}
 	}
 }

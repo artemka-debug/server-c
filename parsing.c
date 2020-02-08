@@ -12,7 +12,6 @@ void parse_headers(ss *list, request *req) {
         char *header = substring(list->header[i], 0, strlen(list->header[i]) - (strlen(value) + 2));
         req->headers = push_header(req->headers, header, value);
     }
-
 }
 
 Method check_method(char *method) {

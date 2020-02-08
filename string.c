@@ -7,12 +7,8 @@ char* concat(const char *s1, const char *s2) {
     return result;
 }
 
-char* concat_h(const char *s1, const char *s2, int last_header) {
-    char *final_header = malloc(strlen(s1) + strlen(s2) + 7);
-    strcpy(final_header, s1);
-	final_header[strlen(final_header)] = ':';
-	final_header[strlen(final_header)] = ' ';
-    strcat(final_header, s2);
+char* concat_h(const char *s1, int last_header) {
+    char *final_header = malloc(strlen(s1) + last_header ? 4 : 2);
 	final_header[strlen(final_header)] = '\r';
 	final_header[strlen(final_header)] = '\n';
 

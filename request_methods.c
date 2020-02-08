@@ -20,6 +20,7 @@ ss *split_request(char *str) {
         char *test = strstr(str + start, "\r\n");
         int end = strlen(str) - strlen(test);
         char *header = substring(str, start, end);
+        printf("testing %i %i [%s]\n", start, end, header);
 
         push(list, header);
         start = end + strlen("\r\n");
