@@ -9,10 +9,10 @@ void print(ss *head) {
 }
 
 
-void print_h(Header *head) {
+void print_h(Header *head, int h_amount) {
     Header *tmp = head;
 
-    while (tmp) {
+    for (int i = 0; i < h_amount; i++) {
         printf("headers [%s %s]\n", tmp->name, tmp->value);
         tmp = tmp->next;
     }

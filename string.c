@@ -4,6 +4,7 @@ char* concat(const char *s1, const char *s2) {
     char *result = malloc(strlen(s1) + strlen(s2) + 1);
     strcpy(result, s1);
     strcat(result, s2);
+    
     return result;
 }
 
@@ -21,12 +22,13 @@ char* concat_h(const char *s1, int last_header) {
 
 char *substring(char *str, size_t start, size_t end) {
     size_t size = end - start;
-    char *out = malloc(sizeof(char) * size);
+    char *out = malloc(sizeof(char) * (size + 1));
+    int c = 0;
 
-    for (size_t j = start, c = 0; j < end; j++, c++) {
+    for (size_t j = start; j < end; j++, c++) {
         out[c] = str[j];
     }
-    out[end] = '\0';
+    out[c] = '\0';
 
     return out;
 }

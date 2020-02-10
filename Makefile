@@ -13,6 +13,9 @@ $(EXECUTABLE): $(OBJECTS)
 	@echo "\033[92m[Target $(EXECUTABLE) Has been created, run ./$@]\033[0m"
 	@echo "\033[92m[Starting $(EXECUTABLE) ...]\033[0m"
 
+memory-check:
+	make re && valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all -s ./$(EXECUTABLE) 8080
+
 %.o: %.c
 	@echo "Compiling $@"
 	@$(COMPILER) -c $< -o $@

@@ -1,19 +1,14 @@
 #include "main.h"
 
 char *make_response_string(char *status, char *http_version, char *json_data, char *headers) {
-    char *response_string = concat(concat("HTTP/", http_version), status);
-    response_string = realloc(response_string, 2);
-
-    response_string[strlen(response_string)] = '\r';
-    response_string[strlen(response_string)] = '\n';
     
-    if (headers && json_data) {
+    char *version = concat("HTTP/", http_version);
+    char *http_string = concat(version, status);
+    char *response_string = concat(http_string, "\r\n");
+    
+    if (json_data && headers) {
         return concat(concat(response_string, headers), json_data);
-    } else {
-        response_string[strlen(response_string)] = '\r';
-        response_string[strlen(response_string)] = '\n';
-        return response_string;
     }
 
-    return concat(concat(response_string, json_data), "");
+    return concat(response_string, "\r\n");
 }

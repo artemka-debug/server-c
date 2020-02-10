@@ -12,11 +12,9 @@ void init_post(post *post, char *path[], void (*fnc[])(request *req, int new_soc
 
 r *init_router(char *get_path[], void (*g[])(request *req, int new_socket), char *post_path[], void (*p[])(request *req, int new_socket), int length_g, int length_p) {
     r *Router = malloc(sizeof(r));
-	Router->get = malloc(sizeof(get));
-	Router->post = malloc(sizeof(post));
 
-	init_get(Router->get, get_path, g, length_g);
-	init_post(Router->post, post_path, p, length_p);
+	init_get(&Router->get, get_path, g, length_g);
+	init_post(&Router->post, post_path, p, length_p);
 
     return Router;
 }

@@ -3,11 +3,10 @@
 request *parse_request(ss *list) {
     request *req = malloc(sizeof(request)); 
 
-    print(list);
+    // print(list);
     parse_body(list, req);
-    printf("req body [%s]\n", req->body);
+    // printf("req body [%s]\n", req->body);
     parse_headers(list, req);
-    print_h(req->headers);
     parse_req_str(list, req);
 
     return req;

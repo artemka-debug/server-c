@@ -32,11 +32,13 @@ void start_and_run_server(r *Router, int server, int connections, struct sockadd
 			printf("start [%s] \n", buffer); 
 		    ss *list = split_request(buffer);
     		request *req = parse_request(list);
-			
+			print_h(req->headers, req->body ? list->top - 2 : list->top - 1);
+			print(list);
+
 			router(req, new_socket, Router);
 			printf("------------------------\n");
-    		// free_request(req);
-		    // free_ss(list);
+    		free_request(req, req->body ? list->top - 2 : list->top - 1);
+		    free_ss(list);
 		}
 	}
 }

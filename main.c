@@ -1,30 +1,14 @@
 #include "main.h"
 
 int main(int argc, char *argv[]) {
-	// char *req = "POST / HTTP/1.1\r\n"
-	// 			"Host: localhost:8080\r\n"
-	// 			"content-type: text/plain\r\n"
-	// 			"ref: http://localhost:8080/Aa\r\n"
-	// 			"content-length: 10\r\n\r\n"
-	// 			"62137990Aa";
-
-	// for (int i = 0; i < 3; i++) {
-	// 	printf("%i\n", i);
-	// 	printf("------------------------\n");
-
-	// 	printf("%s\n", req);
-	// 	ss *list = split_request(req);
-	// 	request *test = parse_request(list);
-	// 	// free_request(test);
-	// 	// free_ss(list);
-	// 	printf("------------------------\n");
-	// }
+	// char *response = make_response_string(" 500 Not Handled", VERSION, NULL, NULL);
+	// printf("TEST [%s]", response);
+	// free(response);
 
 	if (argc == 1 || argc > 2) {
 		printf("Required only one argument: port number\n");
 		exit(1);
 	}
-
 
 	char *get_path[] = {"/", "/page", "/test", "/hui"};
 	char *post_path[] = {"/auth"}; 
@@ -38,6 +22,7 @@ int main(int argc, char *argv[]) {
 	};
 
 	r *Router = init_router(get_path, g, post_path, p, 4, 1);
+	
 	int port = atoi(argv[1]);
 	int server = socket(AF_INET, SOCK_STREAM, 0);
 

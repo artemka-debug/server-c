@@ -6,7 +6,10 @@ void _get(request *req, get *get, char *path, int new_socket) {
             get->fnc[i](req, new_socket);
         }
     }
-    respond(new_socket, make_response_string(" 500 Not Handled", VERSION, NULL, NULL));
+    char *response = make_response_string(" 500 Not Handled", VERSION, "\r\n\r\n", NULL);
+
+    respond(new_socket, response);
+    free(response);
 }
 
 void _post(request *req, post *post, char *path, int new_socket) {
@@ -15,13 +18,16 @@ void _post(request *req, post *post, char *path, int new_socket) {
             post->fnc[i](req, new_socket);
         }
     }
-    respond(new_socket, make_response_string(" 500 Not Handled", VERSION, "\r\n\r\n", NULL));
+    char *response = make_response_string(" 500 Not Handled", VERSION, "\r\n\r\n", NULL);
+
+    respond(new_socket, response);
+    free(response);
 }
 
  void router(request *req, int new_socket, r *Router) {
     if (req->method == GET) {
-        _get(req, Router->get, req->url, new_socket);
+        _get(req, &Router->get, req->url, new_socket);
     } else if (req->method == POST) {
-        _post(req, Router->post, req->url, new_socket);
+        _post(req, &Router->post, req->url, new_socket);
     }
  }

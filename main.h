@@ -8,7 +8,7 @@
 #include <arpa/inet.h>
 #include <sys/types.h>
 
-#define CONNECTIONS 1000
+#define CONNECTIONS 10000
 #define PASSWORD "62137990Aa"
 #define VERSION "1.1"
 
@@ -50,8 +50,8 @@ typedef struct post {
 } post;
 
 typedef struct router {
-    struct get *get;
-    struct post *post;
+    struct get get;
+    struct post post;
 } r;
 
 void parse_body(ss *list, request *req);
@@ -64,11 +64,11 @@ ss *split_request(char *str);
 char *request_header(const char *name, request *req);
 
 void print(ss *head);
-void print_h(Header *head);
+void print_h(Header *head, int h_amount);
 
 void free_ss(ss *head);
-void free_header(struct Header *h);
-void free_request(struct request *req);
+void free_header(struct Header *h, int h_amount);
+void free_request(struct request *req, int h_amount);
 
 Header *push_header(Header *head, char *name, char *value);
 void push(ss *head, char *header);
