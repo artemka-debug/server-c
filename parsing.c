@@ -1,9 +1,7 @@
 #include "main.h"
 
 void parse_body(ss *list, request *req) {
-    // printf("parsing body\n");
     req->body = list->header[list->top - 1];
-    // printf("end\n");
 }
 
 void parse_headers(ss *list, request *req) {

@@ -8,18 +8,6 @@ char* concat(const char *s1, const char *s2) {
     return result;
 }
 
-char* concat_h(const char *s1, int last_header) {
-    char *final_header = malloc(strlen(s1) + last_header ? 4 : 2);
-	final_header[strlen(final_header)] = '\r';
-	final_header[strlen(final_header)] = '\n';
-
-    if (last_header) {
-        final_header[strlen(final_header)] = '\r';
-        final_header[strlen(final_header)] = '\n';
-    }
-    return final_header;
-}
-
 char *substring(char *str, size_t start, size_t end) {
     size_t size = end - start;
     char *out = malloc(sizeof(char) * (size + 1));

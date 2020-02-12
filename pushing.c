@@ -8,7 +8,6 @@ void add_get_path(get *get, char *path[], int length) {
 }
 
 void add_get_func(get *get, void (*fnc[])(request *req, int new_socket), int length) {
-    get->top = 0;
     get->top_fnc = 0;
 
     for (int i = 0; i < length; i++) {
@@ -25,7 +24,6 @@ void add_post_path(post *post, char *path[], int length) {
 }
 
 void add_post_func(post *post, void (*fnc[])(request *req, int new_socket), int length) {
-    post->top = 0;
     post->top_fnc = 0;
 
     for (int i = 0; i < length; i++) {

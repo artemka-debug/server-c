@@ -1,10 +1,10 @@
 #include "main.h"
 
 int main(int argc, char *argv[]) {
-	// char *response = make_response_string(" 500 Not Handled", VERSION, NULL, NULL);
-	// printf("TEST [%s]", response);
-	// free(response);
+	// char *test = make_response_string(" 500 Not Handled", VERSION, "NULL, NULL", "null");
+	// printf("TEST [%s]\n", test);
 
+	// free(test);
 	if (argc == 1 || argc > 2) {
 		printf("Required only one argument: port number\n");
 		exit(1);

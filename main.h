@@ -78,7 +78,6 @@ void add_post_func(post *post, void (*fnc[])(request *req, int new_socket), int 
 void add_post_path(post *post, char *path[], int length);
 
 char *substring(char *str, size_t start, size_t end);
-char *concat_h(const char *s1, int last_header);
 char *concat(const char *s1, const char *s2);
 char *make_response_string(char *status, char *http_version, char *json_data, char *headers);
 
